@@ -12,7 +12,7 @@ export async function execute(interaction: CommandInteraction) {
   await interaction.reply({
     content: "Restarting the server...",
   });
-
+  console.log("Restarting the server...");
   exec(restartCommand, restartCommandOptions, async (error, stdout, stderr) => {
     if (error) {
       console.error(`exec error: ${error}`);
@@ -21,13 +21,8 @@ export async function execute(interaction: CommandInteraction) {
       );
       return;
     }
-    if (stderr) {
-      console.error(`stderr: ${stderr}`);
-      await interaction.editReply(
-        "An error occurred while restarting the server."
-      );
-      return;
-    }
+
+    console.error(`stderr: ${stderr}`);
     console.log(`stdout: ${stdout}`);
     await interaction.editReply("Server restarted successfully.");
   });
